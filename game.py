@@ -160,7 +160,9 @@ class Game(object):
             print('\r\n\r\n')
 
     def start_play(self, player1, player2, start_player=0, is_shown=1):
-        """start a game between two players"""
+        """训练的智能体 battle 单纯的MCTS
+        两个player交替执行，针对当前状态做出反应，直至game结束。用于evaluate时训练得到的智能体和单纯的MCTS间play
+        start a game between two players"""
         if start_player not in (0, 1):
             raise Exception('start_player should be either 0 (player1 first) '
                             'or 1 (player2 first)')
@@ -178,7 +180,7 @@ class Game(object):
             self.board.do_move(move)
             if is_shown:
                 self.graphic(self.board, player1.player, player2.player)
-            end, winner = self.board.game_end()
+            end, winner = self.board.game_end() # 判断game是否结束
             if end:
                 if is_shown:
                     if winner != -1:
@@ -188,7 +190,9 @@ class Game(object):
                 return winner
 
     def start_self_play(self, player, is_shown=0, temp=1e-3):
-        """ start a self-play game using a MCTS player, reuse the search tree,
+        """ 训练的智能体 battle 训练的智能体
+        均使用训练得到的智能体对当前状态做反应，直至game结束。用于产生数据
+        start a self-play game using a MCTS player, reuse the search tree,
         and store the self-play data: (state, mcts_probs, z) for training
         """
         self.board.init_board()
@@ -206,7 +210,7 @@ class Game(object):
             self.board.do_move(move)
             if is_shown:
                 self.graphic(self.board, p1, p2)
-            end, winner = self.board.game_end()
+            end, winner = self.board.game_end() # 判断game是否结束
             if end:
                 # winner from the perspective of the current player of each state
                 winners_z = np.zeros(len(current_players))
