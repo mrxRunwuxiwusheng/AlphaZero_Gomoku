@@ -16,7 +16,7 @@ def rollout_policy_fn(board):
     action_probs = np.random.rand(len(board.availables))
     return zip(board.availables, action_probs)
 
-
+# 和mcts_alphaZero的主要在于此，这里由当前搜索树中的值决定，而mcts_alphaZero是外部传入的policy_value_fn，主要为训练的智能体alphaZero决策
 def policy_value_fn(board):
     """a function that takes in a state and outputs a list of (action, probability)
     tuples and a score for the state"""
