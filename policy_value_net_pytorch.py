@@ -28,7 +28,7 @@ class Net(nn.Module):
         self.board_width = board_width
         self.board_height = board_height
         # common layers
-        self.conv1 = nn.Conv2d(4, 32, kernel_size=3, padding=1)
+        self.conv1 = nn.Conv2d(4, 32, kernel_size=5, padding=2)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
         # action policy layers
